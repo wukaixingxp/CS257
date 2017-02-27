@@ -17,6 +17,10 @@ public class Board {
                 Grid grid = new Grid();
                 grid.setxLocation(i);
                 grid.setyLocation(j);
+                //!!!!!!!!!!!!!!!!!!!!!!!!Debugging!!
+                grid.setNumber(2);
+                grid.setDisplay(true);
+                //!!!!!!!!!!!!!!!!!!!!!!!!Debugging!!
                 gridList[i][j] = grid;
             }
         }
@@ -48,17 +52,34 @@ public class Board {
         this.gridList[x][y] = grid;
     }
     public void rollLeft(){
-        rollOnerowLeft(gridList[0][0]);
-        rollOnerowLeft(gridList[1][0]);
-        rollOnerowLeft(gridList[2][0]);
-        rollOnerowLeft(gridList[3][0]);
+        rollOnerowLeft(gridList[0][1]);
+        rollOnerowLeft(gridList[1][1]);
+        rollOnerowLeft(gridList[2][1]);
+        rollOnerowLeft(gridList[3][1]);
     }
     private void rollOnerowLeft(Grid startGrid) {
         int x = startGrid.getxLocation();
         int y = startGrid.getyLocation();
         while (y < 4) {
-            y = y + 1;
-            startGrid.merge(this.gridList[x][y]);
+            startGrid.merge(this.gridList[x][y-1]);
+            if (y < 3) {
+                startGrid = this.gridList[x][y + 1];
+            }
+            y = y + 1;;
+        }
+    }
+    public void printBoard() {
+        for (int i = 0; i < 4; i++) {
+            List<Integer> row = new ArrayList<Integer>();
+            for (int j = 0; j < 4; j++) {
+                if (this.gridList[i][j].getDisplay()) {
+                    int number = this.gridList[i][j].getNumber();
+                    row.add(j, number);
+                }
+                else{row.add(j,-1);}
+            }
+            System.out.println(i);
+            System.out.println(row);
         }
     }
 }

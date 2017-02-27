@@ -30,24 +30,33 @@ public class Grid {
         this.display = display;
     }
     public void setxLocation(int xLocation) {
-        this.number = xLocation;
+        this.xLocation = xLocation;
     }
     public void setyLocation(int yLocation) {
-        this.number = yLocation;
+        this.yLocation = yLocation;
     }
+    // this function merge this grid onto the mergeGrid if possible
     public void merge(Grid mergeGrid) {
         if (mergeGrid == null) {
             System.out.println("merging with null");
             return;
         }
-        if (!mergeGrid.getDisplay()) {
+        // if this grid is not displayed, stop the merge
+        if (!this.getDisplay()) {
             return;
         }
+        // if these grids are the same, merge
         if (mergeGrid.getNumber() == this.number) {
-            this.number = this.number * 2;
-            mergeGrid.setNumber(0);
-            mergeGrid.setDisplay(false);
+            mergeGrid.setNumber(this.number * 2);
+            this.setNumber(0);
+            this.setDisplay(false);
+            return;
         }
+        // if merge grid is empty, move this grid into the merge grid
+        mergeGrid.setNumber(this.getNumber());
+        mergeGrid.setDisplay(this.getDisplay());
+        this.setDisplay(false);
+        this.setNumber(0);
     }
 }
 
