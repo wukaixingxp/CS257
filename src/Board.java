@@ -76,6 +76,77 @@ public class Board {
             y = y + 1;;
         }
     }
+    public void rollRight(){
+        //roll right twice to avoid special case where these could be two merge happening in one row.
+        rollOnerowRight(gridList[0][2]);
+        rollOnerowRight(gridList[1][2]);
+        rollOnerowRight(gridList[2][2]);
+        rollOnerowRight(gridList[3][2]);
+        rollOnerowRight(gridList[0][2]);
+        rollOnerowRight(gridList[1][2]);
+        rollOnerowRight(gridList[2][2]);
+        rollOnerowRight(gridList[3][2]);
+
+    }
+    private void rollOnerowRight(Grid startGrid) {
+        int x = startGrid.getxLocation();
+        int y = startGrid.getyLocation();
+        while (y >= 0) {
+            startGrid.merge(this.gridList[x][y + 1]);
+            if (y > 0) {
+                startGrid = this.gridList[x][y - 1];
+            }
+            y = y - 1;;
+        }
+    }
+
+    public void rollUp(){
+        //roll left twice to avoid special case where these could be two merge happening in one row.
+        rollOnerowUp(gridList[1][0]);
+        rollOnerowUp(gridList[1][1]);
+        rollOnerowUp(gridList[1][2]);
+        rollOnerowUp(gridList[1][3]);
+        rollOnerowUp(gridList[1][0]);
+        rollOnerowUp(gridList[1][1]);
+        rollOnerowUp(gridList[1][2]);
+        rollOnerowUp(gridList[1][3]);
+
+    }
+    private void rollOnerowUp(Grid startGrid) {
+        int x = startGrid.getxLocation();
+        int y = startGrid.getyLocation();
+        while (x < 4) {
+            startGrid.merge(this.gridList[x+1][y]);
+            if (x < 3) {
+                startGrid = this.gridList[x-1][y];
+            }
+            x = x + 1;;
+        }
+    }
+
+    public void rollDown(){
+        //roll left twice to avoid special case where these could be two merge happening in one row.
+        rollOnerowUp(gridList[1][0]);
+        rollOnerowUp(gridList[1][1]);
+        rollOnerowUp(gridList[1][2]);
+        rollOnerowUp(gridList[1][3]);
+        rollOnerowUp(gridList[1][0]);
+        rollOnerowUp(gridList[1][1]);
+        rollOnerowUp(gridList[1][2]);
+        rollOnerowUp(gridList[1][3]);
+
+    }
+    private void rollOnerowDown(Grid startGrid) {
+        int x = startGrid.getxLocation();
+        int y = startGrid.getyLocation();
+        while (y >= 0) {
+            startGrid.merge(this.gridList[x][y+1]);
+            if (y >0) {
+                startGrid = this.gridList[x][y - 1];
+            }
+            y = y - 1;;
+        }
+    }
     public void printBoard() {
         for (int i = 0; i < 4; i++) {
             List<Integer> row = new ArrayList<Integer>();
@@ -103,5 +174,27 @@ public class Board {
             return true;
         }
         return false;
+    }
+    public void play(){
+        Scanner reader = new Scanner(System.in);
+        while (!isFull()){
+            generateRandom();
+            System.out.println("Enter a number(1 for up, 2 for down,3 left, 4 right): ");
+            int n = reader.nextInt();
+            switch (n) {
+                case 1:
+                    rollUp();
+                    break;
+                case 2:
+                    rollDown();
+                    break;
+                case 3:
+                    rollLeft();
+                    break;
+                case 4:
+                    rollRight();
+                    break;
+            }
+        }
     }
 }

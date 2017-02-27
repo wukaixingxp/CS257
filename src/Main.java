@@ -10,7 +10,7 @@ public class Main {
 //        game.generateRandom();
         game.printBoard();
         System.out.println(game.isFull());
-        game.rollLeft();
+        game.rollRight();
         game.printBoard();
         System.out.println(game.isFull());
 
