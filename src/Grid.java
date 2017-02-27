@@ -53,10 +53,12 @@ public class Grid {
             return;
         }
         // if merge grid is empty, move this grid into the merge grid
-        mergeGrid.setNumber(this.getNumber());
-        mergeGrid.setDisplay(this.getDisplay());
-        this.setDisplay(false);
-        this.setNumber(0);
+        if (!mergeGrid.getDisplay()) {
+            mergeGrid.setNumber(this.getNumber());
+            mergeGrid.setDisplay(this.getDisplay());
+            this.setDisplay(false);
+            this.setNumber(0);
+        }
     }
 }
 

@@ -28,6 +28,9 @@ public class Board {
     }
     // This function generate a random grid in a random location, and assign a number value to the grid.
     public void generateRandom(){
+        if (isFull()){
+            return;
+        }
         Random generateGrid = new Random();
         // First, we generate a random location.
         int location = generateGrid.nextInt(15);
@@ -52,6 +55,11 @@ public class Board {
         this.gridList[x][y] = grid;
     }
     public void rollLeft(){
+        //roll left twice to avoid special case where these could be two merge happening in one row.
+        rollOnerowLeft(gridList[0][1]);
+        rollOnerowLeft(gridList[1][1]);
+        rollOnerowLeft(gridList[2][1]);
+        rollOnerowLeft(gridList[3][1]);
         rollOnerowLeft(gridList[0][1]);
         rollOnerowLeft(gridList[1][1]);
         rollOnerowLeft(gridList[2][1]);
@@ -81,5 +89,19 @@ public class Board {
             System.out.println(i);
             System.out.println(row);
         }
+    }
+    public boolean isFull(){
+        int count = 0;
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                if (this.gridList[i][j].getDisplay()){
+                    count++;
+                }
+            }
+        }
+        if (count == 16){
+            return true;
+        }
+        return false;
     }
 }

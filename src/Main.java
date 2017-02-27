@@ -1,3 +1,6 @@
+/**
+ * Created by Kaixing on 2/27/2017.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -6,8 +9,10 @@ public class Main {
 //        game.generateRandom();
 //        game.generateRandom();
         game.printBoard();
+        System.out.println(game.isFull());
         game.rollLeft();
         game.printBoard();
+        System.out.println(game.isFull());
+
     }
 }
-
