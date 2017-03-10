@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class Board {
     public Grid[][] gridList;
-
+    public int score;
     public void setGridList(Grid[][] gridList) {
         this.gridList = gridList;
     }
@@ -27,9 +27,9 @@ public class Board {
         }
         setGridList(gridList);
     }
-
     // This function generate a random grid in a random location, and assign a number value to the grid.
     public void generateRandom() {
+        this.score = getScore();
         if (isFull()) {
             return;
         }
@@ -207,7 +207,7 @@ public class Board {
         return false;
     }
 
-    public void play() {
+    public void playLevel1() {
         Scanner reader = new Scanner(System.in);
         while (!isFull()) {
             generateRandom();
@@ -230,6 +230,40 @@ public class Board {
             }
         }
 
+
+    }
+    public void playLevel2() {
+        Scanner reader = new Scanner(System.in);
+        while (!isFull()) {
+            if (this.score > 300000){
+                Grid [][] rotatedList = new Grid[4][4];
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        rotatedList[i][j] = this.gridList[j][i];
+                    }
+                }
+                this.gridList = rotatedList;
+            }
+            generateRandom();
+            printBoard();
+            System.out.println("Enter a number(1 for up, 2 for down,3 left, 4 right): ");
+            int n = reader.nextInt();
+            switch (n) {
+                case 1:
+                    rollUp();
+                    break;
+                case 2:
+                    rollDown();
+                    break;
+                case 3:
+                    rollLeft();
+                    break;
+                case 4:
+                    rollRight();
+                    break;
+            }
+            System.out.println( "You lost!!!");
+        }
     }
 
     public int getScore() {
